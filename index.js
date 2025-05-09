@@ -2,6 +2,7 @@ const { Telegraf } = require('telegraf');
 const Cloudflare = require('cloudflare').default;
 require('dotenv').config();
 const fs = require('fs');
+const ADMIN_ID = process.env.ADMIN_ID;
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -20,6 +21,16 @@ function saveAccounts() {
     fs.writeFileSync('user_accounts.json', JSON.stringify(userAccounts, null, 2));
 }
 
+// Middleware hanya untuk admin
+function onlyAdmin(ctx, next) {
+    if (String(ctx.from.id) !== String(ADMIN_ID)) {
+        return ctx.reply('❌ Anda tidak diizinkan mengakses bot ini.');
+    }
+    return next();
+}
+
+bot.use(onlyAdmin);
+
 // Add Cloudflare account
 bot.command('addaccount', async (ctx) => {
     const args = ctx.message.text.split(' ').slice(1);
@@ -35,7 +46,7 @@ bot.command('addaccount', async (ctx) => {
 });
 
 // List all added accounts
-bot.command('listaccounts', (ctx) => {
+async function handleListAccounts(ctx) {
     const userId = ctx.from.id;
     if (!userAccounts[userId] || userAccounts[userId].length === 0) {
         return ctx.reply('Belum ada akun yang ditambahkan.');
@@ -45,10 +56,10 @@ bot.command('listaccounts', (ctx) => {
         msg += `${i + 1}. ${acc.email}\n`;
     });
     ctx.reply(msg);
-});
+}
 
 // List all zones from all accounts
-bot.command('listzones', async (ctx) => {
+async function handleListZones(ctx) {
     const userId = ctx.from.id;
     if (!userAccounts[userId] || userAccounts[userId].length === 0) {
         return ctx.reply('Belum ada akun yang ditambahkan.');
@@ -75,7 +86,7 @@ bot.command('listzones', async (ctx) => {
         }
     }
     ctx.reply(msg || 'Tidak ada zone yang ditemukan.');
-});
+}
 
 // Start command dengan menu utama
 bot.start((ctx) => {
@@ -95,10 +106,10 @@ bot.start((ctx) => {
 });
 
 // Help command
-bot.command('help', (ctx) => {
+function handleHelp(ctx) {
     ctx.reply(
-        `ℹ️ *Bantuan Cloudflare DNS Manager Bot*\n
-*Perintah utama:*
+        `ℹ️ <b>Bantuan Cloudflare DNS Manager Bot</b>\n
+<b>Perintah utama:</b>
 /start - Menu utama
 /addaccount email api_key - Tambah akun Cloudflare
 /listaccounts - Lihat akun yang sudah ditambahkan
@@ -106,9 +117,9 @@ bot.command('help', (ctx) => {
 /help - Tampilkan bantuan
 
 Gunakan tombol menu untuk navigasi lebih mudah!`,
-        { parse_mode: 'Markdown' }
+        { parse_mode: 'HTML' }
     );
-});
+}
 
 // Handler tombol menu utama
 bot.on('callback_query', async (ctx) => {
@@ -118,17 +129,18 @@ bot.on('callback_query', async (ctx) => {
         await ctx.reply('Untuk menambah akun, gunakan format:\n/addaccount email@example.com api_key_here');
     } else if (data === 'list_accounts') {
         await ctx.answerCbQuery();
-        ctx.scene = null;
-        // Panggil ulang listaccounts
-        bot.commands.get('listaccounts')(ctx);
+        await handleListAccounts(ctx);
     } else if (data === 'list_zones') {
         await ctx.answerCbQuery();
-        // Panggil ulang listzones
-        bot.commands.get('listzones')(ctx);
+        await handleListZones(ctx);
     } else if (data === 'help') {
         await ctx.answerCbQuery();
-        bot.commands.get('help')(ctx);
+        handleHelp(ctx);
     }
 });
+
+bot.command('listaccounts', handleListAccounts);
+bot.command('listzones', handleListZones);
+bot.command('help', handleHelp);
 
 bot.launch(); 
