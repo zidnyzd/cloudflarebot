@@ -34,6 +34,7 @@ echo -e "${GREEN}Extracting files...${NC}"
 unzip main.zip
 mv cloudflarebot-main/* .
 rm -rf cloudflarebot-main main.zip
+cd /root/cloudflarebot
 
 # Install dependencies
 echo -e "${GREEN}Installing dependencies...${NC}"
