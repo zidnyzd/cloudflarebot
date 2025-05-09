@@ -11,6 +11,6 @@
     "cloudflare": "^4.0.0",
     "dotenv": "^16.0.3",
     "telegraf": "^4.12.2",
-    "telegraf-inline-menu": "^7.0.0"
+    "telegraf-inline-menu": "^6.3.0"
   }
 } 
