@@ -17,13 +17,7 @@ A Telegram bot for managing Cloudflare DNS records with a beautiful interface.
 #### For Linux/macOS:
 ```bash
 # Download the installation script
-wget https://raw.githubusercontent.com/zidnyzd/cloudflarebot/main/install.sh
-
-# Make it executable
-chmod +x install.sh
-
-# Run the installation script
-./install.sh
+wget https://raw.githubusercontent.com/zidnyzd/cloudflarebot/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 #### For Windows:
