@@ -43,11 +43,14 @@ npm install
 echo -e "${GREEN}Creating .env file...${NC}"
 echo "Please enter your Telegram Bot Token:"
 read BOT_TOKEN
+echo "Please enter your Telegram Admin ID:"
+read ADMIN_ID
 echo "Please enter your Cloudflare Email:"
 read CLOUDFLARE_EMAIL
 echo "Please enter your Cloudflare Global API Key:"
 read CLOUDFLARE_API_KEY
 echo "BOT_TOKEN=$BOT_TOKEN" > .env
+echo "ADMIN_ID=$ADMIN_ID" >> .env
 echo "CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL" >> .env
 echo "CLOUDFLARE_API_KEY=$CLOUDFLARE_API_KEY" >> .env
 
