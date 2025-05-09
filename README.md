@@ -10,17 +10,49 @@ A Telegram bot for managing Cloudflare DNS records with a beautiful interface.
 - User-friendly interface with inline buttons
 - Secure storage of API keys
 
-## Setup
+## Quick Installation
 
-1. Clone this repository
+### Using Installation Scripts
+
+#### For Linux/macOS:
+```bash
+# Download the installation script
+wget https://raw.githubusercontent.com/zidnyzd/cloudflarebot/main/install.sh
+
+# Make it executable
+chmod +x install.sh
+
+# Run the installation script
+./install.sh
+```
+
+#### For Windows:
+```powershell
+# Download the installation script
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/zidnyzd/cloudflarebot/main/install.bat" -OutFile "install.bat"
+
+# Run the installation script
+.\install.bat
+```
+
+### Manual Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/zidnyzd/cloudflarebot.git
+   cd cloudflarebot
+   ```
+
 2. Install dependencies:
    ```bash
    npm install
    ```
+
 3. Create a `.env` file and add your Telegram bot token:
    ```
    BOT_TOKEN=your_telegram_bot_token_here
    ```
+
 4. Start the bot:
    ```bash
    npm start
@@ -55,6 +87,14 @@ A Telegram bot for managing Cloudflare DNS records with a beautiful interface.
 - A Telegram bot token (get from @BotFather)
 - Cloudflare API key
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 ## License
 
-MIT 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter any issues or have questions, please open an issue on GitHub. 
