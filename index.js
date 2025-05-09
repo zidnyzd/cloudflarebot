@@ -2,8 +2,8 @@ const Cloudflare = require('cloudflare').default;
 require('dotenv').config();
 
 // Masukkan email dan Global API Key Anda di sini atau lewat .env
-const apiEmail = process.env.CLOUDFLARE_EMAIL || 'your_email@example.com';
-const apiKey = process.env.CLOUDFLARE_API_KEY || 'PASTE_YOUR_GLOBAL_API_KEY_HERE';
+const apiEmail = process.env.CLOUDFLARE_EMAIL;
+const apiKey = process.env.CLOUDFLARE_API_KEY;
 
 async function testCloudflareConnection() {
     try {
