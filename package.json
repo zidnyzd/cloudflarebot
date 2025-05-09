@@ -1,0 +1,16 @@
+{
+  "name": "cloudflare-dns-manager-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for managing Cloudflare DNS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.61.0",
+    "cloudflare": "^4.0.0",
+    "dotenv": "^16.0.3",
+    "telegraf": "^4.12.2",
+    "telegraf-inline-menu": "^7.0.0"
+  }
+} 
