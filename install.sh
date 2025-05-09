@@ -34,7 +34,6 @@ echo -e "${GREEN}Extracting files...${NC}"
 unzip main.zip
 mv cloudflarebot-main/* .
 rm -rf cloudflarebot-main main.zip
-cd /root/cloudflarebot
 
 # Install dependencies
 echo -e "${GREEN}Installing dependencies...${NC}"
@@ -44,8 +43,15 @@ npm install
 echo -e "${GREEN}Creating .env file...${NC}"
 echo "Please enter your Telegram Bot Token:"
 read BOT_TOKEN
+echo "Please enter your Cloudflare Email:"
+read CLOUDFLARE_EMAIL
+echo "Please enter your Cloudflare Global API Key:"
+read CLOUDFLARE_API_KEY
 echo "BOT_TOKEN=$BOT_TOKEN" > .env
+echo "CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL" >> .env
+echo "CLOUDFLARE_API_KEY=$CLOUDFLARE_API_KEY" >> .env
 
 echo -e "${GREEN}Installation completed!${NC}"
 echo -e "${YELLOW}To start the bot, run:${NC}"
+cd /root/cloudflarebot
 echo "npm start" 
